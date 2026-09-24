@@ -63,19 +63,52 @@ def depthFirstSearch(problem):
   """
   Search the deepest nodes in the search tree first [p 85].
   
-  Your search algorithm needs to return a list of actions that reaches
-  the goal.  Make sure to implement a graph search algorithm [Fig. 3.7].
-  
-  To get started, you might want to try some of these simple commands to
-  understand the search problem that is being passed in:
-  
-  print "Start:", problem.getStartState()
-  print "Is the start a goal?", problem.isGoalState(problem.getStartState())
-  print "Start's successors:", problem.getSuccessors(problem.getStartState())
+  Graph search implementation using a LIFO stack.
   """
+  frontier = util.Stack()
+  start_state = problem.getStartState()
+  frontier.push((start_state, []))
+  visited = set()
+
+  while not frontier.isEmpty():
+    state, actions = frontier.pop()
+
+    if problem.isGoalState(state):
+      return actions
+
+    if state in visited:
+      continue
+    visited.add(state)
+
+    for successor, action, step_cost in problem.getSuccessors(state):
+      if successor not in visited:
+        frontier.push((successor, actions + [action]))
+
+  return []
 
 def breadthFirstSearch(problem):
-  "Search the shallowest nodes in the search tree first. [p 81]"
+  """
+  Search the shallowest nodes in the search tree first. [p 81]
+  
+  Graph search implementation using a FIFO queue.
+  """
+  frontier = util.Queue()
+  start_state = problem.getStartState()
+  frontier.push((start_state, []))
+  visited = set([start_state])
+
+  while not frontier.isEmpty():
+    state, actions = frontier.pop()
+
+    if problem.isGoalState(state):
+      return actions
+
+    for successor, action, step_cost in problem.getSuccessors(state):
+      if successor not in visited:
+        visited.add(successor)
+        frontier.push((successor, actions + [action]))
+
+  return []
       
 def uniformCostSearch(problem):
   """Search the node of least total cost first."""
