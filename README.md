@@ -94,6 +94,23 @@ python pacman.py -l trickyClassic -p SearchAgent -a fn=astar,prob=FoodSearchProb
 
 ---
 
+### 5 y 6. Benchmark de Heurísticas en `bigMaze` (Comparativa UCS vs. A*)
+
+Para comparar formalmente el desempeño de UCS frente a $A^*$ (con heurística nula, Manhattan y Euclidiana) evaluando tiempos de ejecución, nodos expandidos, desviación estándar y costo:
+
+```bash
+# Ejecución estándar (1000 iteraciones por defecto)
+python benchmark_bigmaze.py
+```
+
+Opciones avanzadas del benchmark:
+```bash
+# Cambiar el número de iteraciones o el layout
+python benchmark_bigmaze.py --iteraciones 100 --layout bigMaze --salida resultados_benchmark.csv
+```
+
+---
+
 ## ⚙️ Parámetros y Opciones Comunes
 
 | Parámetro | Descripción | Ejemplo |
@@ -112,6 +129,8 @@ python pacman.py -l trickyClassic -p SearchAgent -a fn=astar,prob=FoodSearchProb
 
 - `search.py`: Implementación de los algoritmos de búsqueda ($A^*$, BFS, UCS) con control de visitados `mejor_g` y prueba de meta tardía (*late goal test*).
 - `searchAgents.py`: Implementación de `CornersProblem`, `cornersHeuristic` (TSP), `foodHeuristicManhattan` y `foodHeuristic` (Árbol de Expansión Mínima MST con memoria caché).
+- `benchmark_bigmaze.py`: Script de benchmarking estadístico para los puntos 5 y 6 (UCS vs. $A^*$ Manhattan/Euclidiana/Nula).
+- `ejecutar_experimentos.py`: Script automatizado para el registro de métricas del taller.
 - `resultados.csv`: Consolidado formal de métricas experimentales exigido por la guía.
 - `resultados_experimentales.log`: Traza detallada de ejecución con costos, expansiones y rutas.
 - `informe.tex`: Documento en LaTeX con el desarrollo conceptual, matemático y experimental completo (Actividades 1 a 11).
